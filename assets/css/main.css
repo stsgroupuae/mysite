@@ -42,7 +42,7 @@ footer, header, hgroup, menu, nav, section {
 /* للجوال */
 @media screen and (max-width: 736px) {
     #logo img {
-        max-width: 80px !important;  /* أصغر على الجوال */
+        max-width: 30px !important;  /* أصغر على الجوال */
     }
 }
 
