@@ -33,7 +33,7 @@ footer, header, hgroup, menu, nav, section {
 }
 
 #logo img {
-    max-width: 150px !important;  /* الحجم النهائي على الكمبيوتر */
+    max-width: 100px !important;  /* الحجم النهائي على الكمبيوتر */
     width: auto !important;
     height: auto !important;
     display: block !important;
@@ -42,7 +42,7 @@ footer, header, hgroup, menu, nav, section {
 /* للجوال */
 @media screen and (max-width: 736px) {
     #logo img {
-        max-width: 120px !important;  /* أصغر على الجوال */
+        max-width: 80px !important;  /* أصغر على الجوال */
     }
 }
 
