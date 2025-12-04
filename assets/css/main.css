@@ -29,14 +29,17 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;}
 #logo {
-    font-size: 0 !important;  /* يمنع تأثير font-size على حجم الصورة */
+    font-size: 0 !important;  /* يمنع تأثير font-size على الصورة */
+    height: auto;
 }
 
 #logo img {
     max-width: 150px !important;  /* حجم مناسب للكمبيوتر والجوال */
+    width: auto !important;
     height: auto !important;
     display: block !important;
 }
+
 
 body {
 	line-height: 1;
