@@ -2911,8 +2911,9 @@ input, select, textarea {
 		/* Header */
 
 			#header {
-				display: none;
-			}
+    display: block !important;
+             }
+
 
 		/* Banner */
 
