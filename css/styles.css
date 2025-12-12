@@ -10978,6 +10978,7 @@ header.masthead .masthead-heading {
     font-style: italic;
     line-height: 2.25rem;
     margin-bottom: 2rem;
+    text-shadow: 2px 2px 0 #000000;
   }
   header.masthead .masthead-heading {
     font-size: 2.5rem;
