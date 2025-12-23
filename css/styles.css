@@ -11319,19 +11319,15 @@ section#contact form#contactForm :-ms-input-placeholder {
    RTL FIX FOR ARABIC (Weglot)
    ========================= */
 
-/* عند تفعيل اللغة العربية */
 html[lang="ar"] body {
   direction: rtl;
-  text-align: right;
 }
 
-/* حل مشكلة التفاف العناوين */
-html[lang="ar"] h1,
-html[lang="ar"] h2,
-html[lang="ar"] h3,
+/* العنوان الرئيسي – عربي + في المنتصف */
 html[lang="ar"] .masthead-heading,
 html[lang="ar"] .masthead-subheading {
   direction: rtl;
-  text-align: right;
   unicode-bidi: plaintext;
+  text-align: center;
 }
+
