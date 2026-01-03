@@ -11319,34 +11319,55 @@ section#contact form#contactForm :-ms-input-placeholder {
    RTL FIX FOR ARABIC (Weglot)
    ========================= */
 
+/* ===================================================
+   STS GROUP - MULTILINGUAL & LAYOUT FIX (Weglot)
+   =================================================== */
+
+/* 1. إعدادات الاتجاه العام للغة العربية */
 html[lang="ar"] body {
-  direction: rtl;
+    direction: rtl;
+    text-align: right;
 }
 
-/* العنوان الرئيسي – عربي + في المنتصف */
-html[lang="ar"] .masthead-heading,
-html[lang="ar"] .masthead-subheading {
-  direction: rtl;
-  unicode-bidi: plaintext;
-  text-align: center;
-}
+/* 2. ضبط مكان القائمة (Navbar) بناءً على اللغة */
 
-/* --- تعديل مكان القائمة بناءً على اللغة (Weglot) --- */
-
-/* 1. الحالة الإنجليزية: سحب الروابط لليسار لتكون بجانب الشعار وزر اللغة */
+/* في الإنجليزية: سحب الروابط لليسار بجانب الشعار */
 html[lang="en"] .navbar-nav {
     margin-right: auto !important;
     margin-left: 0 !important;
 }
 
-/* 2. الحالة العربية: سحب الروابط لليمين لتكون بجانب الشعار (الموجود يميناً) */
+/* في العربية: سحب الروابط لليمين بجانب الشعار */
 html[lang="ar"] .navbar-nav {
     margin-left: auto !important;
     margin-right: 0 !important;
 }
 
-/* 3. ضمان محاذاة النصوص في الهيدر لليسار في الإنجليزية (اختياري حسب ذوقك) */
-html[lang="en"] .masthead {
-    text-align: left !important;
+/* 3. ضمان بقاء نصوص الهيدر (Masthead) في المنتصف دائماً للغتين */
+.masthead .masthead-subheading,
+.masthead .masthead-heading {
+    text-align: center !important;
+    width: 100%;
+    direction: ltr; /* لضمان عدم تأثر ترتيب الكلمات الإنجليزية داخل العربي */
+}
+
+/* تفعيل التوسط التام للعناصر والزر في الهيدر */
+.masthead .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* إعدادات إضافية للنص العربي في الهيدر */
+html[lang="ar"] .masthead-subheading,
+html[lang="ar"] .masthead-heading {
+    direction: rtl;
+    unicode-bidi: plaintext;
+}
+
+/* 4. تعديل المسافات بين عناصر القائمة لتناسب التوزيع الجديد */
+.navbar-nav .nav-item {
+    padding: 0 10px;
 }
 
