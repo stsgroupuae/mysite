@@ -11331,3 +11331,22 @@ html[lang="ar"] .masthead-subheading {
   text-align: center;
 }
 
+/* --- تعديل مكان القائمة بناءً على اللغة (Weglot) --- */
+
+/* 1. الحالة الإنجليزية: سحب الروابط لليسار لتكون بجانب الشعار وزر اللغة */
+html[lang="en"] .navbar-nav {
+    margin-right: auto !important;
+    margin-left: 0 !important;
+}
+
+/* 2. الحالة العربية: سحب الروابط لليمين لتكون بجانب الشعار (الموجود يميناً) */
+html[lang="ar"] .navbar-nav {
+    margin-left: auto !important;
+    margin-right: 0 !important;
+}
+
+/* 3. ضمان محاذاة النصوص في الهيدر لليسار في الإنجليزية (اختياري حسب ذوقك) */
+html[lang="en"] .masthead {
+    text-align: left !important;
+}
+
