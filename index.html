@@ -411,19 +411,16 @@
         <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
         <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
         <script>
-  // ننتظر حتى يتم تحميل الصفحة بالكامل
   window.addEventListener('DOMContentLoaded', function() {
     var form = document.getElementById("contactForm");
     var submitButton = document.getElementById("submitButton");
-    var successMessage = document.getElementById("submitSuccessMessage");
-    var errorMessage = document.getElementById("submitErrorMessage");
 
-    if (!form) return; // تأمين في حال عدم وجود النموذج
+    if (!form) return;
 
     async function handleSubmit(event) {
       event.preventDefault();
       
-      // تجهيز الواجهة للإرسال
+      // تغيير نص الزر ليعرف الزائر أن العملية بدأت
       submitButton.innerHTML = "Sending... Please wait";
       submitButton.disabled = true;
 
@@ -437,27 +434,28 @@
         }
       }).then(response => {
         if (response.ok) {
-          // 1. إخفاء النموذج تماماً
-          form.style.display = 'none';
-          
-          // 2. إظهار رسالة النجاح وتنسيقها بالعربي
-          successMessage.classList.remove("d-none");
-          successMessage.style.display = 'block';
-          successMessage.innerHTML = `
-              <div class="text-center text-white mb-3">
-                  <div class="fw-bolder" style="font-size: 1.8rem;">تم استلام رسالتك بنجاح!</div>
-                  <p style="font-size: 1.2rem;">نشكرك على تواصلك مع STS Group، وسوف يقوم فريقنا بالرد عليك قريباً جداً.</p>
+          // الحل الأفضل: استبدال محتوى النموذج بالكامل برسالة نجاح
+          form.innerHTML = `
+              <div class="text-center py-5" style="background: rgba(255,255,255,0.1); border-radius: 10px; border: 2px solid #ffc800;">
+                  <div class="mb-3">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="#ffc800" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                          <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                      </svg>
+                  </div>
+                  <h2 class="text-white">تم الإرسال بنجاح!</h2>
+                  <p class="text-white-50 mt-3" style="font-size: 1.2rem;">
+                      شكراً لتواصلك مع <strong>STS Group</strong>.<br>
+                      لقد استلمنا رسالتك وسنقوم بالرد عليك في أقرب وقت ممكن.
+                  </p>
+                  <button onclick="location.reload()" class="btn btn-primary mt-3 btn-sm">إرسال رسالة أخرى</button>
               </div>`;
         } else {
-          throw new Error('Response not ok');
+          throw new Error('Error');
         }
       }).catch(error => {
-        // في حال حدوث خطأ، نعيد الزر للعمل لنسمح للزائر بالمحاولة مرة أخرى
         submitButton.disabled = false;
         submitButton.innerHTML = "Send Message";
-        errorMessage.classList.remove("d-none");
-        errorMessage.style.display = 'block';
-        errorMessage.innerHTML = "عذراً، حدث خطأ أثناء الاتصال بالسيرفر. يرجى المحاولة مرة أخرى.";
+        alert("عذراً، حدث خطأ. يرجى التأكد من اتصالك بالإنترنت والمحاولة مرة أخرى.");
       });
     }
 
