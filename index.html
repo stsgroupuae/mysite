@@ -442,7 +442,7 @@
       var data = new FormData(event.target);
 
       fetch(event.target.action, {
-        method: form.method,
+        method: 'POST',
         body: data,
         headers: {
             'Accept': 'application/json'
@@ -461,7 +461,7 @@
                   <p class="text-white-50 mt-3" style="font-size: 1.2rem; padding: 0 20px;">
                       ${texts.successBody}
                   </p>
-                  <button onclick="location.reload()" class="btn btn-primary mt-3 btn-sm">${texts.buttonNew}</button>
+                  <button onclick="window.location.href='#contact'" class="btn btn-primary mt-3 btn-sm">${texts.buttonNew}</button>
               </div>`;
         } else {
           throw new Error('Error');
@@ -469,7 +469,7 @@
       }).catch(error => {
         submitButton.disabled = false;
         submitButton.innerHTML = isArabic ? "إرسال الرسالة" : "Send Message";
-        alert(texts.error);
+        console.log(texts.error);
       });
     }
 
