@@ -411,94 +411,58 @@
         <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
         <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
         <script>
-  var form = document.getElementById("contactForm");
-  
-  async function handleSubmit(event) {
-    event.preventDefault(); // هذا السطر يمنع الانتقال لموقع formspree
-    
-    var status = document.getElementById("submitSuccessMessage");
-    var errorStatus = document.getElementById("submitErrorMessage");
-    var button = document.getElementById("mySubmitButton");
-    var data = new FormData(event.target);
-    
-    // تغيير نص الزر أثناء الإرسال
-    button.innerHTML = "Sending...";
-    button.disabled = true;
-
-    fetch(event.target.action, {
-      method: form.method,
-      body: data,
-      headers: {
-          'Accept': 'application/json'
-      }
-    }).then(response => {
-      if (response.ok) {
-        // إظهار رسالة النجاح الموجودة في قالبك
-        status.classList.remove("d-none");
-        form.reset(); // مسح البيانات من الخانات
-        form.classList.add("d-none"); // إخفاء النموذج
-      } else {
-        response.json().then(data => {
-          if (Object.hasOwn(data, 'errors')) {
-            errorStatus.innerHTML = data["errors"].map(error => error["message"]).join(", ");
-          } else {
-            errorStatus.innerHTML = "Oops! There was a problem submitting your form";
-          }
-          errorStatus.classList.remove("d-none");
-        })
-      }
-    }).catch(error => {
-      errorStatus.innerHTML = "Oops! There was a problem connecting to the server";
-      errorStatus.classList.remove("d-none");
-    }).finally(() => {
-        button.innerHTML = "Send Message";
-        button.disabled = false;
-    });
-  }
-  form.addEventListener("submit", handleSubmit)
-</script>
-<script>
-  var form = document.getElementById("contactForm");
-  
-  async function handleSubmit(event) {
-    event.preventDefault();
-    var status = document.getElementById("submitSuccessMessage");
-    var errorStatus = document.getElementById("submitErrorMessage");
+  // ننتظر حتى يتم تحميل الصفحة بالكامل
+  window.addEventListener('DOMContentLoaded', function() {
+    var form = document.getElementById("contactForm");
     var submitButton = document.getElementById("submitButton");
-    var data = new FormData(event.target);
-    
-    // 1. تغيير حالة الزر أثناء الإرسال ليعرف الزائر أن العملية جارية
-    submitButton.innerHTML = "Sending... Please wait";
-    submitButton.disabled = true;
+    var successMessage = document.getElementById("submitSuccessMessage");
+    var errorMessage = document.getElementById("submitErrorMessage");
 
-    fetch(event.target.action, {
-      method: form.method,
-      body: data,
-      headers: {
-          'Accept': 'application/json'
-      }
-    }).then(response => {
-      if (response.ok) {
-        // 2. إظهار رسالة النجاح
-        status.classList.remove("d-none"); 
-        // 3. كتابة ملاحظة مخصصة للزائر
-        status.innerHTML = `
-          <div class="text-center text-white mb-3">
-            <div class="fw-bolder">تم استلام رسالتك بنجاح!</div>
-            نشكرك على تواصلك معنا، وسوف يقوم فريقنا بالرد عليك قريباً.
-          </div>`;
-        
-        form.reset(); // تفريغ الحقول
-        form.style.display = "none"; // إخفاء النموذج ليشعر الزائر بالانجاز
-      } else {
-        errorStatus.classList.remove("d-none");
-        errorStatus.innerHTML = "عذراً، حدث خطأ أثناء الإرسال. يرجى المحاولة لاحقاً.";
-      }
-    }).catch(error => {
-      errorStatus.classList.remove("d-none");
-    });
-  }
-  form.addEventListener("submit", handleSubmit)
-</script> 
+    if (!form) return; // تأمين في حال عدم وجود النموذج
+
+    async function handleSubmit(event) {
+      event.preventDefault();
+      
+      // تجهيز الواجهة للإرسال
+      submitButton.innerHTML = "Sending... Please wait";
+      submitButton.disabled = true;
+
+      var data = new FormData(event.target);
+
+      fetch(event.target.action, {
+        method: form.method,
+        body: data,
+        headers: {
+            'Accept': 'application/json'
+        }
+      }).then(response => {
+        if (response.ok) {
+          // 1. إخفاء النموذج تماماً
+          form.style.display = 'none';
+          
+          // 2. إظهار رسالة النجاح وتنسيقها بالعربي
+          successMessage.classList.remove("d-none");
+          successMessage.style.display = 'block';
+          successMessage.innerHTML = `
+              <div class="text-center text-white mb-3">
+                  <div class="fw-bolder" style="font-size: 1.8rem;">تم استلام رسالتك بنجاح!</div>
+                  <p style="font-size: 1.2rem;">نشكرك على تواصلك مع STS Group، وسوف يقوم فريقنا بالرد عليك قريباً جداً.</p>
+              </div>`;
+        } else {
+          throw new Error('Response not ok');
+        }
+      }).catch(error => {
+        // في حال حدوث خطأ، نعيد الزر للعمل لنسمح للزائر بالمحاولة مرة أخرى
+        submitButton.disabled = false;
+        submitButton.innerHTML = "Send Message";
+        errorMessage.classList.remove("d-none");
+        errorMessage.style.display = 'block';
+        errorMessage.innerHTML = "عذراً، حدث خطأ أثناء الاتصال بالسيرفر. يرجى المحاولة مرة أخرى.";
+      });
+    }
+
+    form.addEventListener("submit", handleSubmit);
+  });
+</script>
     </body>
 </html>
